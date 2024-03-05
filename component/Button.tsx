@@ -31,3 +31,20 @@ export const ButtonNote = () => {
     </button>
   );
 };
+
+export const ButtonEditor = ({
+  path:IconComponent,
+  name,
+}: {
+  path: React.ComponentType;
+  name: string;
+}) => {
+  return (
+    <button className="w-auto flex items-center rounded-[5px] px-2 py-1 hover:bg-slate-200">
+      {IconComponent && <IconComponent />} 
+      <div className="ml-[5px] text-[14px] text-slate-500 leading-[21px] font-[500]">
+        {name}
+      </div>
+    </button>
+  );
+};
