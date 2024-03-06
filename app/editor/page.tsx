@@ -8,12 +8,15 @@ import {
   SendSVG,
 } from "@/component/svg";
 import React, { useState } from "react";
-import { PopupBackground, PopupIcon, PopupInput } from "@/component/Popup";
+// import { PopupBackground, PopupIcon, PopupInput } from "@/component/Popup";
 import { ButtonEditor, ButtonSidebar } from "@/component/Button";
 import { Header } from "@/component/Header";
 import Banner from "./Banner";
 import Comment from "./Comment";
 import { useAppContext } from "./layout";
+import { PopupInput } from "@/component/popup/HeaderPopup";
+import { PopupIcon } from "@/component/popup/IconPopup";
+import { PopupBackground } from "@/component/popup/BackgroundPopup";
 
 const Editor = () => {
   const [openPopup, setOpenPopup] = useState(false);
@@ -52,7 +55,7 @@ const Editor = () => {
       />
       <div className="w-full px-[150px]">
         <div className="group w-full ">
-          <div className="w-full mt-[80px] mb-[4px] flex opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="w-full mt-[80px] mb- flex opacity-0 group-hover:opacity-100 transition-all duration-300">
             {!icon && (
               <ButtonEditor path={FaceSVG} name="Add icon" onClick={openIcon} />
             )}
@@ -89,7 +92,7 @@ const Editor = () => {
             <div className="text-[14px] text-[#37352F] leading-[21px] font-[600] mx-[7px]">
               Hoàng Dương
             </div>
-            <div className="text-[12px] leading-[16px] opacity-55">
+            <div className="text-3 leading-[16px] opacity-55">
               24 phút trước
             </div>
           </div>
