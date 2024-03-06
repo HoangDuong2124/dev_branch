@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FileSVG, InboxSVG, PlusSVG, SearchSVG, SettingSVG, ThreeDotSVG } from "./svg";
+import { useAppContext } from "@/app/editor/layout";
 export const ButtonSidebar = ({
   path:IconComponent,
   name,
@@ -18,10 +19,11 @@ export const ButtonSidebar = ({
 };
 
 export const ButtonNote = () => {
+  const {title, setTitle} = useAppContext();
   return (
     <button className="group-hover:group-hover w-full flex  items-center rounded-[5px]  p-2 hover:bg-slate-200 relative">
       <FileSVG />
-      <p className="ml-2 text-[14px] text-black font-[500]">Untitled</p>
+      <p className="ml-2 text-[14px] text-black font-[500]">{title?title:"Untitled"}</p>
       <div
         title="Delete, Rename, and more..."
         className="w-[25px] h-[20px] flex justify-center items-center  rounded-[5px]  hover:bg-slate-300 absolute right-2"
