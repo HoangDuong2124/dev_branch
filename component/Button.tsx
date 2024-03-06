@@ -19,10 +19,10 @@ export const ButtonSidebar = ({
 };
 
 export const ButtonNote = () => {
-  const {title, setTitle} = useAppContext();
+  const {title,icon, setTitle} = useAppContext();
   return (
     <button className="group-hover:group-hover w-full flex  items-center rounded-[5px]  p-2 hover:bg-slate-200 relative">
-      <FileSVG />
+     {icon? <img src={`/img/svg/${icon}`} alt="" className="w-[18px] h-[18px]" /> :<FileSVG />} 
       <p className="ml-2 text-[14px] text-black font-[500]">{title?title:"Untitled"}</p>
       <div
         title="Delete, Rename, and more..."
@@ -37,12 +37,14 @@ export const ButtonNote = () => {
 export const ButtonEditor = ({
   path:IconComponent,
   name,
+  onClick
 }: {
   path: React.ComponentType;
   name: string;
+  onClick:() => void
 }) => {
   return (
-    <button className="w-auto flex items-center rounded-[5px] px-2 py-1 hover:bg-slate-200">
+    <button onClick={onClick} className="w-auto flex items-center rounded-[5px] px-2 py-1 hover:bg-slate-200">
       {IconComponent && <IconComponent />} 
       <div className="ml-[5px] text-[14px] text-slate-500 leading-[21px] font-[500]">
         {name}
