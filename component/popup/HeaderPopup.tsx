@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import useClickOutSide from "@/hooks/useClickOutSide";
-import { useAppContext } from "@/app/editor/layout";
 import { FileSVG } from "../svg";
+import { useAppContext } from "@/app/provider/theme";
 
 
 export const PopupInput = ({
@@ -30,7 +29,7 @@ export const PopupInput = ({
           type="text"
           placeholder="Untitled"
           value={title}
-          className="w-[330px] h-[28px] bg-[#f5f3f3] pl-2 border border-slate-300 rounded- outline-none text[14px] text-[#37352F] leading-[24px] "
+          className="w-[330px] h-[28px] bg-[#f5f3f3] pl-2 border border-slate-300 rounded-[5px] outline-none text[14px] text-[#37352F] leading-[24px] "
           onChange={(e) => {
             setTitle(e.target.value);
           }}

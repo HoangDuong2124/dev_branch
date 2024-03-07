@@ -1,22 +1,18 @@
-"use client";
+"use client"
 import {
   CommentSVG,
   FaceSVG,
-  FileSVG,
-  ImageSVG,
-  PaperSVG,
-  SendSVG,
+  ImageSVG
 } from "@/component/svg";
-import React, { useState } from "react";
-// import { PopupBackground, PopupIcon, PopupInput } from "@/component/Popup";
-import { ButtonEditor, ButtonSidebar } from "@/component/Button";
+import { useState } from "react";
+import { ButtonEditor } from "@/component/Button";
 import { Header } from "@/component/Header";
-import Banner from "./Banner";
-import Comment from "./Comment";
-import { useAppContext } from "./layout";
+import { PopupBackground } from "@/component/popup/BackgroundPopup";
 import { PopupInput } from "@/component/popup/HeaderPopup";
 import { PopupIcon } from "@/component/popup/IconPopup";
-import { PopupBackground } from "@/component/popup/BackgroundPopup";
+import { useAppContext } from "../provider/theme";
+import Banner from "./Banner";
+import Comment from "./Comment";
 
 const Editor = () => {
   const [openPopup, setOpenPopup] = useState(false);
@@ -92,7 +88,7 @@ const Editor = () => {
             <div className="text-[14px] text-[#37352F] leading-[21px] font-[600] mx-[7px]">
               Hoàng Dương
             </div>
-            <div className="text-3 leading-[16px] opacity-55">
+            <div className="text-xs leading-[16px] opacity-55">
               24 phút trước
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext } from "./layout";
+import { useAppContext } from "../provider/theme";
 const Banner = ({
   setOpenPopupBackground,
   setOpenPopupIcon
@@ -20,11 +20,11 @@ const Banner = ({
           <div className=" w-auto h-[25px] rounded-[5px] opacity-0 group-hover:opacity-100 transition duration-300 flex bg-[#ffff]  absolute top-[20px] right-[15%]">
             <button
               onClick={() => setOpenPopupBackground(true)}
-              className="hover:bg-slate-200 text-[13px] px- rounded-l-[5px] border-r border-r-slate-200 text-slate-500 leading-[21px] font-[500]"
+              className="hover:bg-slate-200 text-[13px] px-1 rounded-l-[5px] border-r border-r-slate-200 text-slate-500 leading-[21px] font-[500]"
             >
               Change cover
             </button>
-            <button className="hover:bg-slate-200 text-[13px] px- rounded-r-[5px] text-slate-500 leading-[21px] font-[500]">
+            <button className="hover:bg-slate-200 text-[13px] px-1 rounded-r-[5px] text-slate-500 leading-[21px] font-[500]">
               Reposition
             </button>
           </div>
