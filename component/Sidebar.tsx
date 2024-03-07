@@ -1,3 +1,5 @@
+"use client";
+import { useAppContext } from "@/app/provider/theme";
 import { ButtonNote, ButtonSidebar } from "./Button";
 import {
   Add,
@@ -11,7 +13,8 @@ import {
   SettingSVG,
 } from "./svg";
 
-export const SidebarLayout = () => {
+const SidebarLayout = () => {
+  const { title, icon, setTitle } = useAppContext();
   return (
     <div className="group w-60 h-screen p-[2px]   border-r">
       <div className="w-full border-b sticky top-0 z-10 bg-[#ffff]">
@@ -69,3 +72,5 @@ export const SidebarLayout = () => {
     </div>
   );
 };
+
+export default SidebarLayout;

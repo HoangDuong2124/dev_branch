@@ -21,3 +21,12 @@ export interface Comment{
     comment:string
     sentAt:Date
 }
+
+export interface IContext {
+    title: string;
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+    icon: string;
+    setIcon: React.Dispatch<React.SetStateAction<string>>;
+    background: string;
+    setBackground: React.Dispatch<React.SetStateAction<string>>;
+  }

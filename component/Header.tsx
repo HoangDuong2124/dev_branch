@@ -1,4 +1,4 @@
-import { useAppContext } from "@/app/editor/layout";
+import { useAppContext } from "@/app/provider/theme";
 
 export const Header = ({
   openPopup,
@@ -7,14 +7,15 @@ export const Header = ({
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const {title, setTitle} = useAppContext();
+  const {title,icon, setTitle} = useAppContext();
   return (
     <div className="title w-full p-3 sticky top-0 z-50 flex justify-between items-center bg-[#ffff] ">
       <button
         onClick={() => setOpenPopup(!openPopup)}
-        className="ml-2 w-auto h-auto px-[5px] rounded-[3px] hover:bg-slate-200"
-      >
-        <p className=" text-[14px] text-black ">{title?title:"Untitled"}</p>
+        className="ml-2  max-w-[278px] h-auto  py-[2px] flex items-center px-[5px] rounded-[3px] hover:bg-slate-200"
+      > 
+       {icon&&<img src={`/img/svg/${icon}`} alt="" className="w-[18px] h-[18px] mr-[5px]"/>}  
+        <p className=" w-full text-[14px] text-black overflow-hidden text-ellipsis ">{title?title:"Untitled"}</p>
       </button>
 
       <button

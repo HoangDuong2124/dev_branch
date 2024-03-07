@@ -101,3 +101,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.active{
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  border-bottom: 2px solid black;
+}
