@@ -1,9 +1,5 @@
-"use client"
-import {
-  CommentSVG,
-  FaceSVG,
-  ImageSVG
-} from "@/component/svg";
+"use client";
+import { CommentSVG, FaceSVG, ImageSVG } from "@/component/svg";
 import { useState } from "react";
 import { ButtonEditor } from "@/component/Button";
 import { Header } from "@/component/Header";
@@ -19,8 +15,16 @@ const Editor = () => {
   const [openPopupIcon, setOpenPopupIcon] = useState(false);
   const [openPopupBackground, setOpenPopupBackground] = useState(false);
   const [openComment, setOpenComment] = useState(false);
-  const { title, setTitle, icon, setIcon, background, setBackground } =
-    useAppContext();
+  const {
+    title,
+    setTitle,
+    icon,
+    setIcon,
+    background,
+    setBackground,
+    close,
+    setClose,
+  } = useAppContext();
   const openIcon = () => {
     setOpenPopupIcon(true);
   };
@@ -31,7 +35,13 @@ const Editor = () => {
     setOpenComment(true);
   };
   return (
-    <div className="w-full h-screen overflow-auto whitespace-normal">
+    <div
+      className={
+        close
+          ? "w-full h-screen  overflow-auto whitespace-normal trasition-[margin-left] duration-500"
+          : "w-full h-screen ml-[240px] overflow-auto whitespace-normal trasition-[margin-left] duration-500 "
+      }
+    >
       <Header openPopup={openPopup} setOpenPopup={setOpenPopup} />
       {openPopup && (
         <PopupInput openPopup={openPopup} setOpenPopup={setOpenPopup} />

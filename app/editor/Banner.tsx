@@ -36,7 +36,7 @@ const Banner = ({
               className="w-[78px] h-[78px] absolute bottom-[-39px] left-[150px]"
             >
               <img
-                src={`/img/svg/${icon}`}
+                src={`/img/icon/${icon}`}
                 alt="Icon"
                 className="w-full h-full"
               />

@@ -54,7 +54,13 @@ export const PopupIcon = ({
           {checked === 1 ? (
             <Icon />
           ) : (
-            <Custom linkIcon={linkIcon} setLinkIcon={setLinkIcon} />
+            <Custom
+              icon={icon}
+              setIcon={setIcon}
+              linkIcon={linkIcon}
+              setLinkIcon={setLinkIcon}
+              setOpenPopup={setOpenPopup}
+            />
           )}
         </div>
       </div>
@@ -68,10 +74,28 @@ const Icon = () => {
 const Custom = ({
   linkIcon,
   setLinkIcon,
+  icon,
+  setIcon,
+  setOpenPopup
 }: {
   linkIcon: String;
   setLinkIcon: Dispatch<SetStateAction<string>>;
+  icon: String;
+  setIcon: Dispatch<SetStateAction<string>>;
+  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const uploadImage = async (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const data = new FormData()
+      data.append("file",event.target.files[0])
+      await fetch("/api/upload",{
+        method:"POST",
+        body: data
+      })
+      setIcon(event.target.files[0].name)
+      setOpenPopup(false)
+    }
+  };
   return (
     <>
       <div className="w-full px-3 flex items-center justify-between my-[16px] ">
@@ -109,6 +133,7 @@ const Custom = ({
         <input
           type="file"
           accept="image/*"
+          onChange={(e) => uploadImage(e)}
           className="absolute top-0 left-0 w-full h-full opacity-0"
         />
         <span>Upload file</span>

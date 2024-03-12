@@ -4,19 +4,31 @@ import { ButtonNote, ButtonSidebar } from "./Button";
 import {
   Add,
   AnglesBottomSVG,
-  AnglesLeftSVG,
   AnglesTopSVG,
+  CloseSidebarSVG,
   InboxSVG,
   Plus,
   PlusSVG,
   SearchSVG,
   SettingSVG,
 } from "./svg";
+import { useRef, useState } from "react";
 
 const SidebarLayout = () => {
-  const { title, icon, setTitle } = useAppContext();
+  const { title, icon, setTitle,close,setClose } = useAppContext();
+  const closeSidebar = () => {
+    const closed = document.getElementById("main-sidebar");
+    closed?.classList.add("close");
+  };
   return (
-    <div className="group w-60 h-screen p-[2px]   border-r">
+    <div
+      id="main-sidebar"
+      className={
+        close
+          ? "group w-0 h-screen p-[2px] fixed top-0 left-0  border-r transition-all  ease-linear duration-300 "
+          : "group w-60 h-screen p-[2px]  fixed top-0 left-0  border-r  transition-all  ease-linear duration-300  "
+      }
+    >
       <div className="w-full border-b sticky top-0 z-10 bg-[#ffff]">
         <button className=" w-full flex justify-between items-center rounded-[5px] p-2 hover:bg-slate-200 ">
           <div className="flex justify-center items-center">
@@ -32,9 +44,11 @@ const SidebarLayout = () => {
 
           <div
             title="Close Sidebar"
-            className="w-[25px] h-[25px] rounded-[5px] flex justify-center items-center group-hover:opacity-100 hover:bg-slate-300 opacity-0"
+            id="close-sidebar"
+            className="w-[25px] h-[25px] rounded-[5px] flex justify-center items-center group-hover:opacity-100 hover:bg-slate-300 opacity-0 "
+            onClick={() => setClose(true)}
           >
-            <AnglesLeftSVG />
+            <CloseSidebarSVG />
           </div>
         </button>
 

@@ -22,7 +22,7 @@ export const ButtonNote = () => {
   return (
     <button className="group-hover:group-hover w-full flex  items-center rounded-[5px]  p-2 hover:bg-slate-200 relative">
       {icon ? (
-        <img src={`/img/svg/${icon}`} alt="" className="w-[18px] h-[18px]" />
+        <img src={`/img/icon/${icon}`} alt="" className="w-[18px] h-[18px]" />
       ) : (
         <FileSVG />
       )}
