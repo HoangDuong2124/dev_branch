@@ -20,6 +20,7 @@ import AddComment from "../AddComment";
 import Comments from "../Comments";
 import Pusher from "pusher-js";
 import debounce from "@/utils/debounce";
+import { fetchJSON } from "@/utils/fetchURL";
 
 const Editor = ({ params }: { params: { id: string } }) => {
   const { notes, setNotes, close } = useAppContext();
@@ -38,7 +39,7 @@ const Editor = ({ params }: { params: { id: string } }) => {
   });
 
   const fetchUpdateNote = async (data: INote) => {
-    const update = await fetch(`/api/note/${params.id}`, {
+    const update = await fetchJSON(`/api/note/${params.id}`, {
       method: "PUT",
       body: JSON.stringify(data),
     });
@@ -86,7 +87,7 @@ const Editor = ({ params }: { params: { id: string } }) => {
     return () => {
       pusher.disconnect();
     };
-  }, [notes.length]);
+  }, []);
 
   return (
     <div

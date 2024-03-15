@@ -1,6 +1,7 @@
 "use client";
 import { PaperSVG, SendSVG } from "@/component/svg";
 import { groupComment, sendComment } from "@/interfaces";
+import { fetchJSON } from "@/utils/fetchURL";
 import React, { useEffect, useState } from "react";
 
 const AddComment = ({ param }: { param: string }) => {
@@ -12,12 +13,11 @@ const AddComment = ({ param }: { param: string }) => {
   const [comment, setComment] = useState<sendComment>(initComment);
 
   const fetchSendComment = async () => {
-    const send = await fetch("/api/comment", {
+    const send = await fetchJSON("/api/comment", {
       method: "POST",
       body: JSON.stringify(comment),
     });
-    const result = await send.json();
-    return result
+    return send
   };
   const sendComment =  () => {
     fetchSendComment()

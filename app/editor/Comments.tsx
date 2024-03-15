@@ -1,5 +1,6 @@
 "use client";
 import { groupComment } from "@/interfaces";
+import { fetchJSON } from "@/utils/fetchURL";
 import Pusher from "pusher-js";
 import React, { useEffect, useState } from "react";
 
@@ -19,11 +20,10 @@ const Comments = ({ param }: { param: string }) => {
   };
 
   const fetchComment = async () => {
-    const res = await fetch(`/api/comment/${param}`, {
+    const res = await fetchJSON(`/api/comment/${param}`, {
       method: "GET",
     });
-    const mess = await res.json();
-    setAllComment(mess);
+    setAllComment(res);
   };
 
   useEffect(() => {

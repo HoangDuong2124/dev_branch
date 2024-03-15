@@ -15,6 +15,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { INote } from "@/interfaces";
 import Link from "next/link";
+import { fetchJSON } from "@/utils/fetchURL";
 
 const SidebarLayout = () => {
   const randomID = Math.floor(Math.random() * 10000);
@@ -30,12 +31,11 @@ const SidebarLayout = () => {
   const [noteData, setNoteData] = useState<INote>(initNoteData);
   const fetchAddNote = async () => {
     try {
-      const addnote = await fetch("/api/note", {
+      const addnote = await fetchJSON("/api/note", {
         method: "POST",
         body: JSON.stringify(noteData),
       });
-      const result = await addnote.json();
-      return result;
+      return addnote
     } catch (error) {}
   };
   const closeSidebar = () => {

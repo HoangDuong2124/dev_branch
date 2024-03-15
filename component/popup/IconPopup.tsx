@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import useClickOutSide from "@/hooks/useClickOutSide";
 import { useAppContext } from "@/app/provider/theme";
 import { INote } from "@/interfaces";
+import { fetchJSON } from "@/utils/fetchURL";
 
 export const PopupIcon = ({
   noteID,
@@ -102,7 +103,7 @@ const Custom = ({
     if (event.target.files && event.target.files[0]) {
       const data = new FormData();
       data.append("file", event.target.files[0]);
-      await fetch("/api/upload", {
+      await fetchJSON("/api/upload/icon", {
         method: "POST",
         body: data,
       });

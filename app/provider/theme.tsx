@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { INote } from "@/interfaces";
+import { fetchJSON } from "@/utils/fetchURL";
 
 export const AppContext = createContext<{
   notes: INote[];
@@ -17,11 +18,10 @@ export const AppContext = createContext<{
 const Theme = ({ children }: { children: React.ReactNode }) => {
   const fetchNote = async () => {
     try {
-      const res = await fetch("/api/note/1", {
+      const res = await fetchJSON("/api/note/1", {
         method: "GET",
       });
-      const data = await res.json();
-      setNotes(data);
+      setNotes(res);
     } catch (error) {}
   };
 
