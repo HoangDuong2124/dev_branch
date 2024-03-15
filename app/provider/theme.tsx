@@ -1,35 +1,44 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
-interface IContext {
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  icon:string;
-  setIcon: React.Dispatch<React.SetStateAction<string>>;
-  background: string;
-  setBackground: React.Dispatch<React.SetStateAction<string>>;
-  close:boolean;
-  setClose:React.Dispatch<React.SetStateAction<boolean>>;
-}
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { INote } from "@/interfaces";
 
-export const AppContext = createContext<IContext>({
-  title: "",
-  setTitle: () => {},
-  icon: "",
-  setIcon: () => {},
-  background: "",
-  setBackground: () => {},
+export const AppContext = createContext<{
+  notes: INote[];
+  setNotes:React.Dispatch<React.SetStateAction<INote[]>>
+  close:boolean;
+  setClose:React.Dispatch<React.SetStateAction<boolean>>
+}>({
+  notes: [],
+  setNotes: () => {},
   close:false,
-  setClose:()=>{},
+  setClose:() => {},
 });
 
 const Theme = ({ children }: { children: React.ReactNode }) => {
-  const [title, setTitle] = useState("");
-  const [icon, setIcon] = useState("");
-  const [background, setBackground] = useState("webb1.jpg");
+  const fetchNote = async () => {
+    try {
+      const res = await fetch("/api/note/1", {
+        method: "GET",
+      });
+      const data = await res.json();
+      setNotes(data);
+    } catch (error) {}
+  };
+
+  const [notes, setNotes] = useState<INote[]>([]);
   const [close,setClose] = useState(false)
+  useEffect(() => {
+    fetchNote();
+  }, []);
+
   return (
     <AppContext.Provider
-      value={{ title, setTitle, icon, setIcon, background, setBackground,close,setClose }}
+      value={{
+        notes,
+        setNotes,
+        close,
+        setClose
+      }}
     >
       {children}
     </AppContext.Provider>

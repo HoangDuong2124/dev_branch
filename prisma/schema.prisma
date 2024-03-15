@@ -29,7 +29,6 @@ model note {
   title      String
   icon       String
   background String
-  comment    String
   content    String
   comments   comment[]
 }

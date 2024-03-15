@@ -5,7 +5,7 @@ import { writeFile } from "fs/promises";
 export const POST = async (req: Request) => {
   const formData = await req.formData();
 
-  const file = formData.get("file");
+  const file = formData.get("file") as File;
   if (!file) {
     return NextResponse.json({ error: "No files received." }, { status: 400 });
   }

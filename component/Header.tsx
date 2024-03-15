@@ -1,14 +1,17 @@
 import { useAppContext } from "@/app/provider/theme";
 import { BarSVG } from "./svg";
+import { INote } from "@/interfaces";
 
 export const Header = ({
+  noteID,
   openPopup,
   setOpenPopup,
 }: {
+  noteID: INote
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { title, icon, setTitle, close, setClose } = useAppContext();
+  const { notes,setNotes, close, setClose } = useAppContext();
   return (
     <div className="title w-full p-3 sticky top-0 z-50 flex justify-between items-center bg-[#ffff] ">
       <div className="flex items-center">
@@ -21,15 +24,15 @@ export const Header = ({
           onClick={() => setOpenPopup(!openPopup)}
           className="ml-2  max-w-[278px] h-auto  py-[2px] flex items-center px-[5px] rounded-[3px] hover:bg-slate-200"
         >
-          {icon && (
+          {noteID.icon && (
             <img
-              src={`/img/icon/${icon}`}
+              src={`/img/icon/${noteID.icon}`}
               alt=""
               className="w-[18px] h-[18px] mr-[5px]"
             />
           )}
           <p className=" w-full text-[14px] text-black overflow-hidden text-ellipsis ">
-            {title ? title : "Untitled"}
+            {noteID.title ? noteID.title : "Untitled"}
           </p>
         </button>
       </div>
