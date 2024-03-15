@@ -13,3 +13,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model user {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  password String
+  notes    note[]
+  comments comment[]
+}
+
+model note {
+  id         Int       @id @default(autoincrement())
+  user       user      @relation(fields: [idUser], references: [id])
+  idUser     Int
+  title      String
+  icon       String
+  background String
+  content    String
+  comments   comment[]
+}
+
+model comment {
+  id      Int      @id @default(autoincrement())
+  user    user     @relation(fields: [idUser], references: [id])
+  idUser  Int
+  note    note     @relation(fields: [idNote], references: [id])
+  idNote  Int
+  comment String
+  sentAt  DateTime @default(now())
+}

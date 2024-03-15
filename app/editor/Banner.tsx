@@ -1,19 +1,22 @@
 import React from "react";
 import { useAppContext } from "../provider/theme";
+import { INote } from "@/interfaces";
 const Banner = ({
+  noteID,
   setOpenPopupBackground,
-  setOpenPopupIcon
+  setOpenPopupIcon,
 }: {
+  noteID:INote
   setOpenPopupBackground: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenPopupIcon: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { icon, background } = useAppContext();
+  // const { icon, background } = useAppContext();
   return (
     <>
-      {background && (
+      {noteID.background && (
         <div className="group w-full h-[180px] relative ">
           <img
-            src={`/img/background/${background}`}
+            src={`/img/background/${noteID.background}`}
             alt="Image"
             className="w-full h-full object-cover"
           />
@@ -28,15 +31,15 @@ const Banner = ({
               Reposition
             </button>
           </div>
-          {icon && (
+          {noteID.icon && (
             <div
               title="Change Icon"
               role="button"
-              onClick={()=>setOpenPopupIcon(true)}
+              onClick={() => setOpenPopupIcon(true)}
               className="w-[78px] h-[78px] absolute bottom-[-39px] left-[150px]"
             >
               <img
-                src={`/img/svg/${icon}`}
+                src={`/img/icon/${noteID.icon}`}
                 alt="Icon"
                 className="w-full h-full"
               />

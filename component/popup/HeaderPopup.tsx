@@ -1,17 +1,22 @@
 import useClickOutSide from "@/hooks/useClickOutSide";
 import { FileSVG } from "../svg";
 import { useAppContext } from "@/app/provider/theme";
+import { INote } from "@/interfaces";
 
 
 export const PopupInput = ({
+    noteID,
     openPopup,
     setOpenPopup,
+    updateNote
   }: {
+    noteID:INote
     openPopup: boolean;
     setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
+    updateNote:(value:string)=>void
   }) => {
     const { documentRef } = useClickOutSide(() => setOpenPopup(false));
-    const { title, setTitle } = useAppContext();
+    const {notes,setNotes} = useAppContext();
     return (
       <div
         ref={documentRef}
@@ -28,11 +33,9 @@ export const PopupInput = ({
         <input
           type="text"
           placeholder="Untitled"
-          value={title}
+          value={noteID.title} 
+          onChange={e=> updateNote(e.target.value)}
           className="w-[330px] h-[28px] bg-[#f5f3f3] pl-2 border border-slate-300 rounded-[5px] outline-none text[14px] text-[#37352F] leading-[24px] "
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
         />
       </div>
     );

@@ -1,15 +1,23 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import useClickOutSide from "@/hooks/useClickOutSide";
 import { useAppContext } from "@/app/provider/theme";
+import { INote } from "@/interfaces";
+import { fetchJSON } from "@/utils/fetchURL";
 
 export const PopupIcon = ({
+  noteID,
+  param,
+  fetchUpdateNote,
   openPopup,
   setOpenPopup,
 }: {
+  noteID: INote;
+  param:string;
+  fetchUpdateNote: (data: INote) => void;
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { icon, setIcon } = useAppContext();
+  const { notes, setNotes } = useAppContext();
   const { documentRef } = useClickOutSide(() => {
     setOpenPopup(false);
   });
@@ -19,6 +27,9 @@ export const PopupIcon = ({
   ];
   const [checked, setChecked] = useState(1);
   const [linkIcon, setLinkIcon] = useState("");
+  const updateIconNote = () => {
+    fetchUpdateNote({ ...noteID, icon: "" });
+  };
   return (
     <div className="w-screen h-screen fixed top-0 left-0 z-[9999] ">
       <div
@@ -42,7 +53,7 @@ export const PopupIcon = ({
           <div
             role="button"
             onClick={() => {
-              setIcon("");
+              updateIconNote();
               setOpenPopup(false);
             }}
             className=" px-2 py-2 rounded-[5px] hover:bg-slate-200 text-[14px] leading-[21px] "
@@ -54,7 +65,14 @@ export const PopupIcon = ({
           {checked === 1 ? (
             <Icon />
           ) : (
-            <Custom linkIcon={linkIcon} setLinkIcon={setLinkIcon} />
+            <Custom
+              noteID={noteID}
+              param ={param}
+              linkIcon={linkIcon}
+              setLinkIcon={setLinkIcon}
+              setOpenPopup={setOpenPopup}
+              fetchUpdateNote={fetchUpdateNote}
+            />
           )}
         </div>
       </div>
@@ -66,12 +84,37 @@ const Icon = () => {
   return <div>ICON</div>;
 };
 const Custom = ({
+  noteID,
+  param,
   linkIcon,
   setLinkIcon,
+  setOpenPopup,
+  fetchUpdateNote,
 }: {
+  noteID: INote;
+  param:string
   linkIcon: String;
   setLinkIcon: Dispatch<SetStateAction<string>>;
+  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchUpdateNote: (data: INote) => void;
 }) => {
+  const {notes,setNotes}  = useAppContext()
+  const uploadImage = async (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const data = new FormData();
+      data.append("file", event.target.files[0]);
+      await fetchJSON("/api/upload/icon", {
+        method: "POST",
+        body: data,
+      });
+      fetchUpdateNote({ ...noteID, icon: event.target.files[0].name });
+      const update = notes.map((item) =>
+      item.id === +param ? { ...item,icon: event.target.files[0].name} : item
+    );
+    setNotes(update);
+      setOpenPopup(false);
+    }
+  };
   return (
     <>
       <div className="w-full px-3 flex items-center justify-between my-[16px] ">
@@ -109,6 +152,7 @@ const Custom = ({
         <input
           type="file"
           accept="image/*"
+          onChange={(e) => uploadImage(e)}
           className="absolute top-0 left-0 w-full h-full opacity-0"
         />
         <span>Upload file</span>

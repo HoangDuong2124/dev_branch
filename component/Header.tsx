@@ -1,22 +1,41 @@
 import { useAppContext } from "@/app/provider/theme";
+import { BarSVG } from "./svg";
+import { INote } from "@/interfaces";
 
 export const Header = ({
+  noteID,
   openPopup,
   setOpenPopup,
 }: {
+  noteID: INote
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const {title,icon, setTitle} = useAppContext();
+  const { notes,setNotes, close, setClose } = useAppContext();
   return (
     <div className="title w-full p-3 sticky top-0 z-50 flex justify-between items-center bg-[#ffff] ">
-      <button
-        onClick={() => setOpenPopup(!openPopup)}
-        className="ml-2  max-w-[278px] h-auto  py-[2px] flex items-center px-[5px] rounded-[3px] hover:bg-slate-200"
-      > 
-       {icon&&<img src={`/img/svg/${icon}`} alt="" className="w-[18px] h-[18px] mr-[5px]"/>}  
-        <p className=" w-full text-[14px] text-black overflow-hidden text-ellipsis ">{title?title:"Untitled"}</p>
-      </button>
+      <div className="flex items-center">
+        {close && (
+          <div role="button" onClick={() => setClose(false)}>
+            <BarSVG />
+          </div>
+        )}
+        <button
+          onClick={() => setOpenPopup(!openPopup)}
+          className="ml-2  max-w-[278px] h-auto  py-[2px] flex items-center px-[5px] rounded-[3px] hover:bg-slate-200"
+        >
+          {noteID.icon && (
+            <img
+              src={`/img/icon/${noteID.icon}`}
+              alt=""
+              className="w-[18px] h-[18px] mr-[5px]"
+            />
+          )}
+          <p className=" w-full text-[14px] text-black overflow-hidden text-ellipsis ">
+            {noteID.title ? noteID.title : "Untitled"}
+          </p>
+        </button>
+      </div>
 
       <button
         title="Style, export, and more..."

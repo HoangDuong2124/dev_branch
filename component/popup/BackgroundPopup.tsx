@@ -1,15 +1,19 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import useClickOutSide from "@/hooks/useClickOutSide";
 import { useAppContext } from "@/app/provider/theme";
+import { INote } from "@/interfaces";
 
 export const PopupBackground = ({
+  noteID,
+  fetchUpdateNote,
   openPopup,
   setOpenPopup,
 }: {
+  noteID: INote;
+  fetchUpdateNote: (data: INote) => void;
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { background, setBackground } = useAppContext();
   const { documentRef } = useClickOutSide(() => {
     setOpenPopup(false);
   });
@@ -19,6 +23,10 @@ export const PopupBackground = ({
   ];
   const [checked, setChecked] = useState(1);
   const [linkIcon, setLinkIcon] = useState("");
+
+  const updateBackgroundNote = () => {
+    fetchUpdateNote({ ...noteID, background: "" });
+  };
   return (
     <div className="w-screen h-screen fixed top-0 left-0 z-[9999] ">
       <div
@@ -42,7 +50,7 @@ export const PopupBackground = ({
           <div
             role="button"
             onClick={() => {
-              setBackground("");
+              updateBackgroundNote();
               setOpenPopup(false);
             }}
             className=" px-2 py-2 rounded-[5px] hover:bg-slate-200 text-[14px] leading-[21px] "
